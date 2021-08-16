@@ -17,4 +17,14 @@ describe "post a quote route", :type => :request do
   it 'returns a created status' do
     expect(response).to have_http_status(:created)
   end
+
+  it 'returns an error when content is left blank' do
+    post '/quotes', params: { :author => 'test_author' }
+    expect(response).to have_http_status(404)
+  end
+
+  it 'returns an error when author is left blank' do
+    post '/quotes', params: { :content => 'test_content' }
+    expect(response).to have_http_status(404)
+  end
 end
